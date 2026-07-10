@@ -10,8 +10,6 @@ const productSchema = z.object({
 
 const updateProductScheme = z.object({
     name: z.string().min(2).optional(),
-    brand: z.string().min(2).optional(),
-    category: z.string().min(2).optional(),
     description: z.string().optional(),
     price: z.number().positive().optional()
 })

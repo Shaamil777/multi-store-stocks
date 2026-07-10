@@ -46,7 +46,7 @@ const getAllProducts = async () =>{
 const getProductById = async(id)=>{
     try {
         
-        const product = await Product.findById({_id:id,isActive:true})
+        const product = await Product.findOne({_id:id,isActive:true})
         if(!product){
             throw new Error("product not found")
         }
@@ -55,6 +55,34 @@ const getProductById = async(id)=>{
         throw error.message
     }
 }
+
+const updateProduct = async(id,productData)=>{
+    const product = await Product.findOne({
+        _id:id,
+        isActive:true
+    })
+    if(!product){
+        throw new Error("Product not found")
+    }
+    
+    delete productData.brand;
+    delete productData.category;
+
+    Object.assign(product,productData)
+    await product.save()
+    return product
+}
+
+const deleteProduct = async(id)=>{
+    const product = await Product.findOne({_id:id,isActive:true})
+    if(!product){
+        throw new Error("Product not found")
+    }
+    product.isActive = false
+    await product.save()
+    return product
+}
+
 module.exports = {
-    createProduct,getAllProducts,getProductById
+    createProduct,getAllProducts,getProductById,updateProduct,deleteProduct
 }

@@ -2,6 +2,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import DashboardLayout from "../components/layout/DashboardLayout"
 import ProtectedRoutes from "./protectedRoute"
 import Login from "../pages/Login"
+import Register from "../pages/Register"
 import Dashboard from "../pages/Dashboard"
 import Product from "../pages/Product"
 import Store from "../pages/Store"
@@ -13,6 +14,7 @@ const AppRoutes = ()=>{
         <BrowserRouter>
         <Routes>
         <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
         <Route element={<ProtectedRoutes/>}>
             <Route element={<DashboardLayout/>}>
                 <Route path="/" element={<Dashboard/>} />

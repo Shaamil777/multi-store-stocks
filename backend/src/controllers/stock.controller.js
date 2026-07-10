@@ -115,7 +115,8 @@ const transferStock = async(req,res)=>{
 
 const getAllStocks = async(req,res)=>{
     try {
-        const stocks = await stockService.getAllStocks()
+        const { threshold } = req.query;
+        const stocks = await stockService.getAllStocks(threshold)
         return res.status(200).json({
             success:true,
             count:stocks.length,

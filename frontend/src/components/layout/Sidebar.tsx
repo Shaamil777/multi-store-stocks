@@ -21,7 +21,7 @@ const sideBar=()=>{
                     Stores
                 </NavLink>
 
-                <NavLink to="/stock">
+                <NavLink to="/stocks">
                     Stock
                 </NavLink>
 

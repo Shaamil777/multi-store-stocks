@@ -15,4 +15,17 @@ const createStore = async (storeData)=>{
     return store
 }
 
-module.exports = {createStore}
+const getAllStore = async () =>{
+    const stores = await Store.find({isActive:true})
+    return stores
+}
+
+const getStoreById = async(id)=>{
+    const store = await Store.findOne({_id:id,isActive:true})
+    if(!store){
+        throw new Error("Store not found")
+    }
+    return store
+}
+
+module.exports = {createStore,getAllStore,getStoreById}

@@ -62,4 +62,52 @@ const getStoreById = async (req,res)=>{
     }
 }
 
-module.exports = {createStore,getAllstores,getStoreById}
+const updateStore = async(req,res)=>{
+    try {
+        const store = await storeService.updateStore(req.params.id,req.body)
+        return res.status(200).json({
+            success:true,
+            message:"Store updated successfully",
+            data:store
+        })
+    } catch (error) {
+        let status = 500;
+
+        if (error.message === "Invalid Store ID") {
+            status = 400;
+        } else if (error.message === "Store not found") {
+            status = 404;
+        }
+
+        return res.status(status).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+const deleteStore = async(req,res)=>{
+    try {
+        const store = await storeService.deleteStore(req.params.id)
+        return res.status(200).json({
+            success:true,
+            message:"Store deleted successfully",
+            data:store
+        })
+    } catch (error) {
+        let status = 500;
+
+        if (error.message === "Invalid Store ID") {
+            status = 400;
+        } else if (error.message === "Store not found") {
+            status = 404;
+        }
+
+        return res.status(status).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+module.exports = {createStore,getAllstores,getStoreById,updateStore,deleteStore}

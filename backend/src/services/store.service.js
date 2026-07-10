@@ -28,4 +28,24 @@ const getStoreById = async(id)=>{
     return store
 }
 
-module.exports = {createStore,getAllStore,getStoreById}
+const updateStore = async(id,storeData)=>{
+    const store = await Store.findOne({_id:id,isActive:true})
+    if(!store){
+        throw new Error("Store not found")
+    }
+    Object.assign(store,storeData)
+    await store.save()
+    return store
+}
+
+const deleteStore = async(id)=>{
+    const store = await Store.findOne({_id:id,isActive:true})
+    if(!store){
+        throw new Error("Store not found")
+    }
+    store.isActive = false
+    await store.save()
+    return store
+}
+
+module.exports = {createStore,getAllStore,getStoreById,updateStore,deleteStore}

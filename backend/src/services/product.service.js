@@ -30,6 +30,31 @@ const createProduct = async (productData)=>{
     }
 }
 
+const getAllProducts = async () =>{
+    try {
+
+        const products = await Product.find({isActive:true}).sort({createdAt:-1})
+        if(!products){
+            throw new Error("No products found")
+        }
+        return products
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const getProductById = async(id)=>{
+    try {
+        
+        const product = await Product.findById({_id:id,isActive:true})
+        if(!product){
+            throw new Error("product not found")
+        }
+        return product
+    } catch (error) {
+        throw error.message
+    }
+}
 module.exports = {
-    createProduct
+    createProduct,getAllProducts,getProductById
 }

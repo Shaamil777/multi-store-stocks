@@ -8,4 +8,12 @@ const productSchema = z.object({
     price: z.number().positive("Price must be greater than 0")
 })
 
-module.exports = { productSchema }
+const updateProductScheme = z.object({
+    name: z.string().min(2).optional(),
+    brand: z.string().min(2).optional(),
+    category: z.string().min(2).optional(),
+    description: z.string().optional(),
+    price: z.number().positive().optional()
+})
+
+module.exports = { productSchema,updateProductScheme }

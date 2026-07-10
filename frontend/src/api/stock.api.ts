@@ -14,3 +14,8 @@ export const adjustStock = async (data: { product: string; store: string; type: 
     const response = await api.patch("/stock/adjust", data);
     return response.data;
 };
+
+export const transferStock = async (data: { product: string; fromStore: string; toStore: string; quantity: number }) => {
+    const response = await api.post("/stock/transfer", data);
+    return response.data;
+};

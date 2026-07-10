@@ -6,6 +6,7 @@ import Dashboard from "../pages/Dashboard"
 import Product from "../pages/Product"
 import Store from "../pages/Store"
 import Stock from "../pages/Stock"
+import Transfer from "../pages/Transfer"
 
 const AppRoutes = ()=>{
     return (
@@ -18,6 +19,7 @@ const AppRoutes = ()=>{
                 <Route path="/products" element={<Product/>}/>
                 <Route path="/stores" element={<Store />} />
                 <Route path="/stocks" element={<Stock />} />
+                <Route path="/transfers" element={<Transfer />} />
             </Route>
         </Route>
         </Routes>

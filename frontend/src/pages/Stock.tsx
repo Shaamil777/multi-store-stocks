@@ -85,7 +85,7 @@ const Stock = () => {
         }
     }
 
-    const openAdjustForm = (stock: StockType) => {
+    const openAdjustForm = (stock) => {
         setAdjustData({
             product: stock.product._id,
             store: stock.store._id,

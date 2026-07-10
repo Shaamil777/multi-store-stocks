@@ -4,6 +4,7 @@ import ProtectedRoutes from "./protectedRoute"
 import Login from "../pages/Login"
 import Dashboard from "../pages/Dashboard"
 import Product from "../pages/Product"
+import Store from "../pages/Store"
 
 const AppRoutes = ()=>{
     return (
@@ -14,8 +15,8 @@ const AppRoutes = ()=>{
             <Route element={<DashboardLayout/>}>
                 <Route path="/" element={<Dashboard/>} />
                 <Route path="/products" element={<Product/>}/>
-                {/* <Route path="/stores" element={<Stores />} />
-                <Route path="/stock" element={<Stock />} />
+                <Route path="/stores" element={<Store />} />
+                {/* <Route path="/stock" element={<Stock />} />
                 <Route path="/transfer" element={<Transfer />} /> */}
             </Route>
         </Route>

@@ -73,4 +73,81 @@ const adjustStock = async(stockData)=>{
     return stock;
 }
 
-module.exports = {createStock,adjustStock}
+const transferStock = async(transferData)=>{
+    const {product,fromStore,toStore,quantity} = transferData
+    
+    if(fromStore === toStore){
+        throw new Error("Source and destination stores cannot be same")
+    }
+
+    const existingProduct = await Product.findOne({
+        _id:product,
+        isActive:true
+    })
+    if(!existingProduct){
+        throw new Error("Product not found");
+    }
+
+    const sourceStore = await Store.findOne({
+        _id:fromStore,
+        isActive:true
+    })
+     if (!sourceStore) {
+        throw new Error("Source store not found");
+    }
+
+    const destinationStore = await Store.findOne({
+        _id:toStore,
+        isActive:true
+    })
+     if (!destinationStore) {
+        throw new Error("Destination store not found");
+    }
+
+    const sourceStock = await Stock.findOne({
+        product,
+        store:fromStore
+    })
+    if (!sourceStock) {
+        throw new Error("Source stock not found");
+    }
+
+    if(sourceStock.quantity<quantity){
+        throw new Error("Insufficient stock for transfer");
+    }
+
+    sourceStock.quantity -= quantity
+
+    let destinationStock = await Stock.findOne({
+        product,
+        store:toStore
+    })
+
+    if(destinationStock){
+        destinationStock.quantity += quantity
+    }else{
+        destinationStock = await Stock.create({
+            product,
+            store:toStore,
+            quantity
+        })
+    }
+
+    await sourceStock.save()
+    if(destinationStock.isModified()){
+        await destinationStock.save()
+    }
+
+    return {
+        sourceStock,
+        destinationStock
+    }
+}
+
+const getAllStocks = async()=>{
+    const stocks = await Stock.find()
+    .populate("product","name sku brand category").populate("store","name district").sort({createdAt:-1})
+    return stocks
+}
+
+module.exports = {createStock,adjustStock,transferStock,getAllStocks}

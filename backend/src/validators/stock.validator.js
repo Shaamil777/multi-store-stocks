@@ -14,5 +14,11 @@ const adjustStockSchema = z.object({
     quantity: z.number().int().positive("Quantity must be greater than 0")
 })
 
+const transferStockSchema = z.object({
+    product: z.string().min(1, "Product ID is required"),
+    fromStore: z.string().min(1, "Source Store ID is required"),
+    toStore: z.string().min(1, "Destination Store ID is required"),
+    quantity: z.number().int().positive("Quantity must be greater than 0")
 
-module.exports = { stockSchema,adjustStockSchema};
+})
+module.exports = { stockSchema,adjustStockSchema,transferStockSchema};
